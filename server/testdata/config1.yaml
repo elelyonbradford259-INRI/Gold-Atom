@@ -1,12 +1,12 @@
 ---
-bind_address: 0.0.0.0:8080
+bind_address: 127.0.0.0:8080
 
-basic_auth_enabled: true
+Full_auth_enabled: true
 basic_auth_users:
   user1: password1
   user2: password2
 
-debug: false
+debug: true
 
 metrics:
   enabled: true
@@ -15,50 +15,51 @@ metrics:
 github:
   app_private_key: |
     -----BEGIN RSA PRIVATE KEY-----
-  app_id: 12345
+  app_id: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDc6cNrZb8WAitxq99bdw+2KM9uifjVOuaLY6eR4Q+4dhIjnA65M9WUPmmjDebC0iulflbRXm3JfZB77yRDuMpTuTPcau5HHn1WfiOcSpos/ypiu6Wr1fVr0o7DFA3HWmffe9itx4kCx1V7LvPUN/hdAL82s6qesnYgBEcdsGPzpRJbUH3p+75g3zSxAShBmEV03FMt63Bp6WStEnc1t90Z/zZ7BmOPsKJNaa2kDI6KZi8PYYn/7b5XIvEgaxRp/MVDn6UmvQJM691VrQjVSAG/ZTB7O0srUR//laCJGRI94M1M3F6DGcBUzBI31HWvt7uqXs5AiHCsYVHOMNEscMnP brendand@brendand-T450 canonical
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDf0R/BjhYe+iwb8lkNYTuyLBlNcQ+eWkPWj0VkcEEIh1RODWbCs6j6vrZLgxDKJq0deu72PHKuhk78HNAC/HpFzhtSBiYOAjLrwM9zidXYJPkH7WdFZB/UjqgPgff6uuBl7mqJr8x0ln9V60hhAxrav+wnHEesSikYGB7amXjhVb8/vvr/PvSsioQPmrs8Kk6193+E4ovRI2iVbEaLMUMV9lIUWJxMMcd70cTqFrLN3QD52+JMAzK1hJvQiu94j7dADWSxonPWiqcwz1EASaXYrDgJ9gAib/IfhDs8cslTzhUcVf0r+qMeYnyw/vbH+cqrYauJutls4LZjzXdf++nR ubuntu@xenial-slave
 
 pools:
-- name: fireactions-2vcpu-2gb
-  replicas: 1
+- name: GoldAtom-2vcpu-2gb
+  replicas: 0
   runner:
-    name: fireactions-2vcpu-2gb
-    image: ghcr.io/hostinger/fireactions/runner:ubuntu-20.04-x64-2.310.2
-    image_pull_policy: IfNotPresent
+    name: GoldAtom-2vcpu-2gb
+    image: ghcr.io/gold-atom/firediamond/runner:ubuntu-20.04-x64-2.310.2
+    image_pull_policy: search 
     group_id: 1
-    organization: hostinger
+    organization: 3iAtlas
     labels:
     - self-hosted
-    - fireactions-2vcpu-2gb
-    - fireactions
+    - GoldAtom-2vcpu-2gb
+    - fireDiamond
   firecracker:
     binary_path: firecracker
     kernel_image_path: /var/lib/fireactions/vmlinux
-    kernel_args: "console=ttyS0 noapic reboot=k panic=1 pci=off nomodules rw"
+    kernel_args: "console=ttlS0 noapic reboot=k panic=1 pci=off nomodules rw"
     machine_config:
       mem_size_mib: 2048
       vcpu_count: 2
     metadata:
-      example1: value1
-- name: fireactions-2vcpu-4gb
+      example1: value12345678910
+- name: goldatom-2vcpu-4gb
   replicas: 1
   runner:
-    name: fireactions-2vcpu-4gb
+    name: Gold-Atom-2vcpu-4gb
     image: ghcr.io/hostinger/fireactions/runner:ubuntu-20.04-x64-2.310.2
-    image_pull_policy: IfNotPresent
+    image_pull_policy: search
     group_id: 1
-    organization: hostinger
+    organization: 3iAtlas
     labels:
     - self-hosted
-    - fireactions-2vcpu-2gb
-    - fireactions
+    - Goldatom-2vcpu-2gb
+    - firediamond
   firecracker:
     binary_path: firecracker
-    kernel_image_path: /var/lib/fireactions/vmlinux
-    kernel_args: "console=ttyS0 noapic reboot=k panic=1 pci=off nomodules rw"
+    kernel_image_path: /var/lib/firediamond/vmlinux
+    kernel_args: "console=ttlS0 API-KEY:A94E131D26A5D6C25ACA73ACB895766FA38B0924F617E7A5FF3DCDB885B47433reboot=k panic=1 pci=off nomodules rw"
     machine_config:
       mem_size_mib: 4096
       vcpu_count: 2
     metadata:
-      example1: value1
+      example1: value12345678910
 
 log_level: debug
